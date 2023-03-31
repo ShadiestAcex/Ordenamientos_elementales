@@ -1,1 +1,116 @@
+/*Created by ShadiestAcex in VisualStudio
+Language C++
+This program was make for use the bubble_sort,
+insertion sort and selection sort,making use 
+a static vector.*/
 
+#include <iostream> 
+#include <conio.h>
+
+using namespace std;
+
+void Arre(int z[]);
+void Burbuja(int z[10]);
+void Seleccion(int z[10]);
+void ver_Arreglo(int z[10]);
+
+int main()
+{
+	int Arreglo[10];
+	char opc;
+	do {
+		system("cls");
+		cout << "---METODOS DE ORDENAMIENTO---" << endl;
+		cout << "a) Metodo de burbuja" << endl;
+		cout << "b) Metodo de insercion" << endl;
+		cout << "c) Metodo de seleccion" << endl;
+		cout << "d)Salir" << endl;
+		cout << "Seleccione una opcion: ";
+		cin >> opc;
+		cout << endl;
+		
+		switch (opc) {
+		case 'a':
+			Arre(Arreglo);
+			Burbuja(Arreglo);
+			ver_Arreglo(Arreglo);
+			_getch();
+			break;
+
+		case 'b':
+			break;
+
+		case 'c':
+			Arre(Arreglo);
+			Seleccion(Arreglo);
+			ver_Arreglo(Arreglo);
+			_getch();
+			break;
+
+		case 'd':
+			break;
+		}
+	} while (opc != 'd');
+	return 0;
+}
+
+void Arre(int z[]) {
+	int x;
+	cout << "Ingrese 10 numeros"<<endl;
+	do {
+		for (x = 0; x < 10; x++) {
+			
+			cout << x + 1 << ":";
+			cin >> z[x];
+			cout << endl;
+		}
+	} while (x == 9);
+}
+
+void Burbuja(int z[10]) {
+	int aux, a = 9;
+	for (int i = 1; i <= 10; i++) {
+		for (int j = 0; j < a; j++) {
+			if (z[j] > z[j + 1]) {
+				aux = z[j + 1];
+				z[j + 1] = z[j];
+				z[j] = aux;
+			}
+		}
+		a--;
+	}
+}
+
+void Insercion(int z[10]) {
+	int i, j;
+	int actual;
+	for (i = 1; i < 10; i++) {
+		actual = z[i];
+		for (j = i; j > 0 && z[j - 1] > actual; j--) {
+			z[j] = z[j - 1];
+		}
+		z[j] = actual;
+	}
+}
+
+void Seleccion(int z[10]) {
+	int aux = 0;
+	for (int i = 0; i < 9; i++) {
+		int menor = i;
+		for (int j = i; j < 9; j++) {
+			if (z[j + 1] < z[menor]) {
+				menor = j + 1;
+			}
+		}
+		aux = z[menor];
+		z[menor] = z[i];
+		z[i] = aux;
+	}
+}
+
+void ver_Arreglo(int z[10]) {
+	int x;
+	for (x = 0; x < 10; x++) {
+		cout << z[x]<<",";
+	}
+}
