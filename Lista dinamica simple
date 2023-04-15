@@ -1,0 +1,173 @@
+/*Creado por ShadiestAcex ♠ 
+Creado en Visual Studio Code 
+Este programa contiene una lista dinamica simple que ordena numeros enteros de menor a mayor
+haciendo uso de los metodos de burbuja y seleccion.
+
+Created by ShadiestAcex ♠
+Created in Visual Studio Code
+This program contain a simple dynamic list that sort integer nums from minor to major
+doing use that methods the bubble sort and selection sort.
+*/
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+struct Nodo{
+    int num;
+    Nodo*siguiente;
+    Nodo(int x){
+        num = x;
+        siguiente=NULL;
+    }
+};
+
+struct Lista{
+    Nodo*inicio;
+    Nodo*fin;
+    Lista(){
+        inicio = NULL;
+        fin = NULL;
+    }
+    void insertar(int x){
+        Nodo*nuevo = new Nodo(x);
+        if(inicio==NULL && fin==NULL){
+            inicio = nuevo;
+            fin = nuevo;
+        }else{
+            fin->siguiente = nuevo;
+            fin = nuevo;
+        }
+    }
+    void mostrar(){
+        if(inicio==NULL && fin==NULL){
+            cout<<"Lista vacia"<<endl;
+        }else{
+            Nodo*actual = inicio;
+            while(actual != NULL){
+                cout<<actual->num<<",";
+                actual = actual->siguiente;
+            }
+        }
+    }
+    void eliminar(){
+        Nodo*actual = inicio;
+        if(inicio==NULL&&fin==NULL){
+            cout<<"Lista vacia"<<endl;
+        }else{
+            if(inicio==fin){
+                inicio = NULL;
+                fin = NULL;
+                delete (actual);
+            }else{
+                while(actual->siguiente != fin){
+                    actual = actual->siguiente;
+                }
+                actual->siguiente = NULL;
+                delete (fin);
+                fin = actual;
+            }
+        }
+    }
+    void burbuja(){
+        if(inicio==NULL||inicio->siguiente==NULL){
+            cout<<"Hacen falta elementos"<<endl;
+        }else{
+            int aux;
+            Nodo *fint=fin;
+            while(fint!=inicio){
+                Nodo*bandera=inicio;
+                Nodo*primero=inicio;
+                Nodo*segundo=primero->siguiente;
+                while(bandera->siguiente!=fint){
+                    bandera=bandera->siguiente;
+                }
+                while(primero!=fint){
+                    if(segundo->num<primero->num){
+                        aux =primero->num;
+                        primero->num=segundo->num;
+                        segundo->num=aux;
+                    }
+                    primero=primero->siguiente;
+                    segundo=segundo->siguiente;
+                }
+                fint=bandera;
+            }
+        }
+    }
+    void seleccion(){
+        if(inicio==NULL||inicio->siguiente==NULL){
+            cout<<"Hacen falta elementos"<<endl;
+        }else{
+            int aux;
+            Nodo*iniciot=inicio;
+            while(iniciot!=NULL){
+                Nodo*min=iniciot;
+                Nodo*act=iniciot;
+                Nodo*avanza=act->siguiente;
+                while(avanza!=NULL){
+                    if(avanza->num < min->num){
+                        min=avanza;
+                    }
+                    avanza=avanza->siguiente;
+                }
+                aux=act->num;
+                act->num=min->num;
+                min->num=aux;
+                iniciot=iniciot->siguiente;
+            }
+        }
+    }
+};
+
+int main(){
+    Lista *lista1 = new Lista();
+    char opc;
+    int dato;
+    do{
+        system("cls");
+        cout<<"---Lista Dinamica Ordenada---"<<endl;
+        cout<<"a) Insertar"<<endl;
+        cout<<"b) Mostrar"<<endl;
+        cout<<"c) Eliminar"<<endl;
+        cout<<"d) Metodo de burbuja"<<endl;
+        cout<<"e) Metodo de seleccion"<<endl;
+        cout<<"f) Salir"<<endl;
+        cout<<"Seleccione una opcion:";
+        cin>>opc;
+        switch(opc){
+            case 'a':
+            system("cls");
+            cout<<"Ingrese un numero entero:";
+            cin>>dato;
+            cout<<endl;
+            lista1->insertar(dato);
+            break;
+            case 'b':
+            system("cls");
+            lista1->mostrar();
+            _getch();
+            break;
+            case 'c':
+            system("cls");
+            lista1->eliminar();
+            _getch();
+            break;
+            case 'd':
+            system("cls");
+            lista1->burbuja();
+            _getch();
+            break;
+            case 'e':
+            system("cls");
+            lista1->seleccion();
+            _getch();
+            break;
+            case 'f':
+            system("cls");
+            cout<<"---ADIOS---";
+            break;
+        }
+    }while(opc!='f');
+    return 0;
+}
